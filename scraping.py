@@ -15,6 +15,7 @@ options.add_argument('--disable-blink-features=AutomationControlled')
 
 driver = webdriver.Chrome(service=service, options=options)
 url = 'https://www.google.com/search?q=barcelona+vs&oq=&gs_lcrp=EgZjaHJvbWUqBggBEEUYOzIGCAAQRRg5MgYIARBFGDsyDAgCEC4YJxiABBiKBTISCAMQABhDGIMBGLEDGIAEGIoFMgwIBBAAGEMYgAQYigUyDAgFEAAYQxiABBiKBTIGCAYQRRg9MgYIBxBFGDzSAQgxMzkzajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#sie=m;/g/11yfnc0n2f;2;/m/09gqx;ms;fp;1;;;'
+url = 'https://www.google.com/search?q=universitario+vs&oq=univ&gs_lcrp=EgZjaHJvbWUqEwgAEEUYJxg7GEYY_QEYgAQYigUyEwgAEEUYJxg7GEYY_QEYgAQYigUyBggBEEUYOTIGCAIQRRg9MgYIAxBFGDwyBggEEEUYPDIGCAUQRRhBMgYIBhBFGEEyBggHEEUYPNIBBzY1OGowajeoAgCwAgA&sourceid=chrome&ie=UTF-8#sie=m;/g/11xdzz4typ;2;/m/01rrc6;dt;fp;1;;;'
 driver.get(url=url)
 time.sleep(5)
 
@@ -43,16 +44,39 @@ for i in team_stats:
 
 goals_info_1 = ''
 goals_info_2 = ''
+goals_list_1 = []
+goals_list_2 = []
+
 if int(result1)>0:
-    goals_info_1 = soup.find('div', {'class': 'imso_gs__tgs imso_gs__left-team'})
+    goals_info_1 = soup.find('div', {'class': 'imso_gs__tgs imso_gs__left-team'}).text
+    for i in (goals_info_1.contents):
+        goals_item_1 = []
+        for j in i.contents:
+            if j.text.replace('\xa0','') != '':
+                item = j.text.strip()
+                goals_item_1.append(item)
+        goals_list_1.append(goals_item_1)
 if int(result2)>0:
     goals_info_2 = soup.find('div', {'class': 'imso_gs__tgs imso_gs__right-team'})
+    for i in (goals_info_2.contents):
+        goals_item_2 = []
+        for j in i.contents:
+            if j.text.replace('\xa0','') != '':
+                item = j.text.strip()
+                goals_item_2.append(item)
+        goals_list_2.append(goals_item_2)
 
-# print()
-# print(type(goals_info_1))
-print((goals_info_2.text))
+print(goals_list_1)
+print(goals_list_2)
 
 if int(stats_1[6]) + int(stats_1[7]) + int(stats_2[6]) + int(stats_2[7]) > 0:
     cards_info = soup.find('div', {'class': 'imso_gs__cs-cont imso-medium-font'})
 
-print(cards_info.text)
+# print(cards_info.text)
+
+
+import pandas as pd
+# 3 dataframes: general teams, about one team, about players. Export to 2 dfs: teams and players
+
+columns = ['date', 'competition', 'goals', 'goal_minute', 'yellow_cards_info', 'red_cards_info',]
+general_df = pd.DataFrame(columns=['date', ''])
