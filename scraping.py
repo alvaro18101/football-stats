@@ -15,7 +15,7 @@ options.add_argument('--disable-blink-features=AutomationControlled')
 
 driver = webdriver.Chrome(service=service, options=options)
 url = 'https://www.google.com/search?q=barcelona+vs&oq=&gs_lcrp=EgZjaHJvbWUqBggBEEUYOzIGCAAQRRg5MgYIARBFGDsyDAgCEC4YJxiABBiKBTISCAMQABhDGIMBGLEDGIAEGIoFMgwIBBAAGEMYgAQYigUyDAgFEAAYQxiABBiKBTIGCAYQRRg9MgYIBxBFGDzSAQgxMzkzajBqN6gCALACAA&sourceid=chrome&ie=UTF-8#sie=m;/g/11yfnc0n2f;2;/m/09gqx;ms;fp;1;;;'
-url = 'https://www.google.com/search?q=universitario+vs&oq=univ&gs_lcrp=EgZjaHJvbWUqEwgAEEUYJxg7GEYY_QEYgAQYigUyEwgAEEUYJxg7GEYY_QEYgAQYigUyBggBEEUYOTIGCAIQRRg9MgYIAxBFGDwyBggEEEUYPDIGCAUQRRhBMgYIBhBFGEEyBggHEEUYPNIBBzY1OGowajeoAgCwAgA&sourceid=chrome&ie=UTF-8#sie=m;/g/11xdzz4typ;2;/m/01rrc6;dt;fp;1;;;'
+# url = 'https://www.google.com/search?q=universitario+vs&oq=univ&gs_lcrp=EgZjaHJvbWUqEwgAEEUYJxg7GEYY_QEYgAQYigUyEwgAEEUYJxg7GEYY_QEYgAQYigUyBggBEEUYOTIGCAIQRRg9MgYIAxBFGDwyBggEEEUYPDIGCAUQRRhBMgYIBhBFGEEyBggHEEUYPNIBBzY1OGowajeoAgCwAgA&sourceid=chrome&ie=UTF-8#sie=m;/g/11xdzz4typ;2;/m/01rrc6;dt;fp;1;;;'
 driver.get(url=url)
 time.sleep(5)
 
@@ -25,9 +25,12 @@ driver.quit()
 
 soup  = BeautifulSoup(html, 'html.parser')
 
+teams_name = soup.find_all('div', {'class': 'liveresults-sports-immersive__hide-element'})
+team_1_name = teams_name[0].text
+team_2_name = teams_name[1].text
+
 championship = soup.find('span', {'class': 'imso-loa imso-ln'}).text
-# championship = soup.find('span', {'class': 'imso-hide-overflow'})
-# date = 
+date = soup.find('div', {'class': 'imso-hide-overflow'}).contents[-1].text
 
 result1 = soup.find('div', {'class': 'imso_mh__l-tm-sc imso_mh__scr-it imso-light-font'}).text
 result2 = soup.find('div', {'class': 'imso_mh__r-tm-sc imso_mh__scr-it imso-light-font'}).text
@@ -66,17 +69,19 @@ if int(result2)>0:
                 goals_item_2.append(item)
         goals_list_2.append(goals_item_2)
 
-print(goals_list_1)
-print(goals_list_2)
-
 if int(stats_1[6]) + int(stats_1[7]) + int(stats_2[6]) + int(stats_2[7]) > 0:
     cards_info = soup.find('div', {'class': 'imso_gs__cs-cont imso-medium-font'})
 
-# print(cards_info.text)
+data_team_1 = [1, date, championship, 'Home', result1, result2, goals_list_1]
+data_team_2 = [1, date, championship, 'Away', result2, result1, goals_list_2]
+data_team_1.extend(stats_1)
+data_team_2.extend(stats_2)
 
-
-import pandas as pd
 # 3 dataframes: general teams, about one team, about players. Export to 2 dfs: teams and players
 
-columns = ['date', 'competition', 'goals', 'goal_minute', 'yellow_cards_info', 'red_cards_info',]
-general_df = pd.DataFrame(columns=['date', ''])
+# print('-----------------------')
+# print(data_team_1)
+# print()
+# print(data_team_2)
+
+print('---Successful scraping---')
