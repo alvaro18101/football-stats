@@ -4,3 +4,4 @@
 - Selenium
 - webdriver-manager
 - beautifulsoup4
+- openpyxl
