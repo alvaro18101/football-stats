@@ -66,6 +66,7 @@ def scrape_match(url):
     date = None
     try:
         date = soup.find('div', {'class': 'imso-hide-overflow'}).contents[-1].text
+        # print('date:', date)
         date = fix_date(date)
     except:
         print('Error scraping date')
@@ -81,23 +82,32 @@ def scrape_match(url):
     team_stats_table = None
     stats_1 = []
     stats_2 = []
+    stats_name_list = ['Remates', 'Remates al arco', 'Posesión', 'Pases', 'Precisión de los pases', 'Faltas', 'Tarjetas amarillas', 'Tarjetas rojas', 'Posición adelantada', 'Tiros de esquina']
+    stat_counter = 0
     try:
         team_stats_table = driver.find_element(By.XPATH, '/html[1]/body[1]/div[3]/div[1]/div[8]/div[1]/div[2]/span[1]/div[1]/div[1]/div[1]/div[1]/div[2]/div[4]/div[3]/div[1]/div[2]/div[1]/div[3]/div[1]/div[1]/div[1]/div[1]/table[1]')
         team_stats = team_stats_table.find_elements(By.TAG_NAME, 'tr')
         team_stats = team_stats[1:]
         for i in range(len(team_stats)):
             children = team_stats[i].find_elements(By.XPATH, "./*")
+            stat_name = children[1].text
+            while stat_name != stats_name_list[stat_counter]:
+                stat_counter += 1
+                stats_1.append('-')
+                stats_2.append('-')
             stats_1.append(children[0].text)
             stats_2.append(children[2].text)
+            stat_counter += 1
+            
     except:
         print('Error scraping stats')
 
-    print(championship)
-    print(f'Fecha: {date}')
-    print()
-    print(f'{team_name_1} {result1} - {result2} {team_name_2}')
-    print()
-    print(team_stats_table.text)
+    # print(championship)
+    # print(f'Fecha: {date}')
+    # print()
+    # print(f'{team_name_1} {result1} - {result2} {team_name_2}')
+    # print()
+    # print(team_stats_table.text)
 
     goals_info_1 = ''
     goals_info_2 = ''
@@ -124,9 +134,14 @@ def scrape_match(url):
                     item = item.replace('\xa0', ' ')
                     goals_item_2.append(item)
             goals_list_2.append(goals_item_2)
-    print()
-    for player, minute in goals_list_1:
-        print(f'{player}: {minute}')
+    # print()
+    # print('Goals:')
+    # print(team_name_1)
+    # for player, minute in goals_list_1:
+    #     print(f'\t{player}: {minute}')
+    # print(team_name_2)
+    # for player, minute in goals_list_2:
+    #     print(f'\t{player}: {minute}')
     # if int(stats_1[6]) + int(stats_1[7]) + int(stats_2[6]) + int(stats_2[7]) > 0:
     #     cards_info = soup.find('div', {'class': 'imso_gs__cs-cont imso-medium-font'})
 
@@ -135,11 +150,10 @@ def scrape_match(url):
     data_team_1.extend(stats_1)
     data_team_2.extend(stats_2)
     driver.quit()
-    print()
+    print(f'{team_name_1} {result1} - {result2} {team_name_2}')
     print('---Successful scraping---')
     return team_name_1, data_team_1, team_name_2, data_team_2
 
 if __name__ == '__main__':
-    test_url = 'https://www.google.com/search?q=partidos+de+fc+barcelona&gs_lcrp=EgZjaHJvbWUqEwgAEEUYJxg7GEYY_QEYgAQYigUyEwgAEEUYJxg7GEYY_QEYgAQYigUyBggBEEUYOTIGCAIQRRg7MgwIAxAjGCcYgAQYigUyDAgEEAAYQxiABBiKBTIGCAUQRRg8MgYIBhBFGDwyBggHEEUYPNIBBzQ2MGowajeoAgCwAgA&sourceid=chrome&ie=UTF-8&si=AL3DRZGGPnnVaiK67YqdUfewzBcS-upM6QijhdUU6Jr8AWsjr8v9CvA-SnNnnxtCTH-Iycrz5Hfiy-o4IHk920D1F5HguzudSJBINLsQJs59tzpsV_DoE3teFj2StyQBu6wTFVQRHxAkZnNilYk5UX14zeC2J8cvyMEij66lv5a54Lb3tXTNH6EwDjyO9HmSby9uktlmw334vuaRUSjGAk8JkgNu1ms_j6cVIbsxZLNpcq6GWPT4U0U%3D&ictx=1&ved=2ahUKEwiNvb7TyK6SAxW1ALkGHR5dJN8Qk8EMegQIPRAC#sie=m;/g/11xt5lg49k;2;/m/0c1q0;dt;fp;1;;;;-1'
-
+    test_url = 'https://www.google.com/search?q=barcelona+vs&oq=barce&gs_lcrp=EgZjaHJvbWUqEwgAEEUYJxg7GEYY_QEYgAQYigUyEwgAEEUYJxg7GEYY_QEYgAQYigUyBggBEEUYOTIGCAIQRRg7Mg4IAxBFGCcYOxiABBiKBTISCAQQLhgUGIMBGIcCGLEDGIAEMgYIBRBFGDwyBggGEEUYPDIGCAcQRRg80gEHNTYwajBqOagCALACAQ&sourceid=chrome&ie=UTF-8#sie=m;/g/11yfnkkllp;2;/m/09gqx;dt;fp;1;;;;-1&wptab=si:AL3DRZGGPnnVaiK67YqdUfewzBcS-upM6QijhdUU6Jr8AWsjr8v9CvA-SnNnnxtCTH-Iycrz5Hfiy-o4IHk920D1F5HguzudSJBINLsQJs59tzpsV_DoE3teFj2StyQBu6wTFVQRHxAkZnNilYk5UX14zeC2J8cvyMEij66lv5a54Lb3tXTNH6EwDjyO9HmSby9uktlmw334vuaRUSjGAk8JkgNu1ms_j6cVIbsxZLNpcq6GWPT4U0U%3D'
     scrape_match(test_url)
