@@ -18,3 +18,26 @@ print(f'Number of matches: {len(df)}')
 print(f'Competitions: {[i for i in df['competition'].unique()]}')
 print('')
 
+def average_stats(df, column):
+    print(f'Stat: {column} ({len(df)} matches)')
+    print(f'Total: {df[column].sum()}')
+    print(f'Average: {round(df[column].sum()/len(df),3)}')
+    print()
+
+from filtering_functions import *
+
+print("---UEFA---")
+df_filtered = filter_by_competition(competition_name="UEFA")
+average_stats(df_filtered, 'gf')
+average_stats(df_filtered, 'ga')
+average_stats(df_filtered, 'corner')
+
+print("---LaLiga in home---")
+df_filtered_2 = filter_by_competition("LaLiga")
+df_filtered_2 = filter_by_local(True, df_filtered_2)
+average_stats(df_filtered_2, 'gf')
+average_stats(df_filtered_2, 'ga')
+average_stats(df_filtered_2, 'corner')
+
+
+print(print_df(df[df['rival_name'] == 'Sevilla']))

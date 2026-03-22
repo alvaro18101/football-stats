@@ -2,7 +2,7 @@ from scraping import *
 import pandas as pd
 
 def save_data(url):
-    columns = ['match_number', 'date', 'competition', 'rival_name', 'local', 'gf', 'ga', 'info_goals', 'shots', 'shots_on_goal', 'possession', 'passing', 'passing_accuracy', 'fouls', 'yellow_cards', 'red_cards', 'offside', 'corner']
+    columns = ['match_number', 'date', 'competition', 'rival_name', 'local', 'gf', 'ga', 'goals_info', 'shots', 'shots_on_goal', 'possession', 'passing', 'passing_accuracy', 'fouls', 'yellow_cards', 'red_cards', 'offside', 'corner']
 
     team_name_1, data_team_1, team_name_2, data_team_2 = scrape_match(url)
     try:
