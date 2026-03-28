@@ -9,17 +9,21 @@
 ## Correct order of codes:
 1. `scraping.py`: Funcion that scraps the web info of stats footbal teams using a link, the code returns lists called team_1_name, data_team_1, team_2_name and data_team_2. **(No run)**
 
-2. `save_data.py`: **Run first**. In the links/ folder, there are `.txt` files with the names of soccer teams, each containing links to the statistics displayed on Google for their matches. This script searches for the `.txt` file with the team name specified in the `current_team_name` variable and iterates through each link, applying the `scraping.py` function each time. The data obtained from each link is saved in an `.xlsx` file (or `.csv`, depending on the `format_file` variable) in the raw_data/ folder (if the file doesn't exist, it is created). For each link, data must be added to two `.xlsx` (or `.csv`) files: one for the home team and one for the away team (or these files must be created). The data for each match is added as a new row, and the columns contain the respective statistics. The columns are: match number, date, competition, rival name, local, goals for, goals against, goal information, shots, shots on goal, possession, passing, passing_accuracy, fouls, yellow_cards, red_cards, offside, corner. Only one team's statistics are saved in its file; the opponent's statistics are saved in their own file.
+2. `save_data.py`: **Run first**. In the links/ folder, there are `.txt` files with the names of soccer teams, each containing links to the statistics displayed on Google for their matches. This script searches for the `.txt` file with the team name specified in the `current_team_name` variable and iterates through each link, applying the `scraping.py` function each time. The data obtained from each link is saved in an `.xlsx` file (or `.csv`, depending on the `format_file` variable) in the scraped_data/ folder (if the file doesn't exist, it is created). For each link, data must be added to two `.xlsx` (or `.csv`) files: one for the home team and one for the away team (or these files must be created). The data for each match is added as a new row, and the columns contain the respective statistics. The columns are: match number, date, competition, rival name, local, goals for, goals against, goal information, shots, shots on goal, possession, passing, passing_accuracy, fouls, yellow_cards, red_cards, offside, corner. Only one team's statistics are saved in its file; the opponent's statistics are saved in their own file.
 
 2. `save_data2.py`: Here, the statistics of the chosen team and the opponent they faced are saved in a single file (named according to `current_team_name`).
 
-3. `save_general_data.py`: This code save two `.xlsx` files inside the `general_data/` folder: `general_df.xlsx` which contains general data for all football teams and `ids.xlsx` which generates an id for each football team.
+3. `save_general_data.py`: This code save two `.xlsx` files inside the `general_data/` folder: `general_df.xlsx` which contains general data for all football teams and `ids.xlsx` which generates an id for each football team. The file is a 'matches complete' type file.
 
 4. `data_processing.py`: This code reads `.xlsx` files and processes their data using Pandas and saves them in the processed_data/ folder.
 
-5. `stats.py`: Show the team stats for a team.
+4. `data_processing2.py`: This code reads `.xlsx` files and processes their data using Pandas and saves them in the processed_data/ folder. Using for 'matches complete' type files.
 
-6. `filtering_functions`: This code reads `.xlsx` files and filters their data according to given criteria using Pandas.
+5. `stats.py`: Show the team stats for a team of scraped_data/ folder.
+
+6. `filtering_functions`: This code reads `.xlsx` files (inside the scraped_data/ folder) and filters their data according to given criteria using Pandas.
+
+
 
 ## Formats
 ## Format of .txt files
