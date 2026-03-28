@@ -4,16 +4,16 @@ import pandas as pd
 general_df = pd.DataFrame(columns=['id', 'name', 'matches_played', 'competitions_number' ,'gf', 'ga', 'gd', 'average_shots', 'average_shots_on_goal', 'average_possession', 'average_passing', 'average_passing_accuracy', 'average_fouls', 'average_yellow_cards', 'average_red_cards', 'average_offside', 'corner'])
 dict_ids = dict()
 
-for i in range(len(os.listdir('raw_data'))):
-    dict_ids[i+1] = os.listdir('raw_data')[i]
+for i in range(len(os.listdir('scraped_data'))):
+    dict_ids[i+1] = os.listdir('scraped_data')[i]
 
 # for i in dict_ids:
-#     df = pd.read_excel(f'raw_data/{dict_ids[i]}')
+#     df = pd.read_excel(f'scraped_data/{dict_ids[i]}')
 #     name = dict_ids[i].replace('raw_', '').replace('.xlsx', '')
 #     general_df.loc[i-1] = [i, name, len(df) , sum(list(df['GF'])), sum(list(df['GC']))]
 
 def save_team_data(team_name):
-    df = pd.read_excel(f'raw_data/{team_name}')
+    df = pd.read_excel(f'scraped_data/{team_name}')
     name = team_name.replace('raw_', '').replace('.xlsx', '')
     general_df.loc[i-1] = [i, name, len(df) , sum(list(df['GF'])), sum(list(df['GC']))]
 

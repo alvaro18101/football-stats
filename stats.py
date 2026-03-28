@@ -11,7 +11,7 @@ else:
     team_name = ids_df['name'][id-1]
     print(f'\t---{team_name}---')
 
-df = pd.read_excel(f'raw_data/raw_{team_name}.xlsx')
+df = pd.read_excel(f'scraped_data/raw_{team_name}.xlsx')
 
 print(f'General stats of {team_name}')
 print(f'Number of matches: {len(df)}')
@@ -21,7 +21,7 @@ print('')
 def average_stats(df, column):
     print(f'Stat: {column} ({len(df)} matches)')
     print(f'Total: {df[column].sum()}')
-    print(f'Average: {round(df[column].sum()/len(df),3)}')
+    print(f'Average: {round(df[column].sum()/len(df), 3)}')
     print()
 
 from filtering_functions import *
@@ -39,5 +39,5 @@ average_stats(df_filtered_2, 'gf')
 average_stats(df_filtered_2, 'ga')
 average_stats(df_filtered_2, 'corner')
 
-
+# Print only some stats
 print(print_df(df[df['rival_name'] == 'Sevilla']))
