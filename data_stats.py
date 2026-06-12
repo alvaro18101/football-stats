@@ -40,9 +40,6 @@ corner_against = df['corner_against'].sum()
 a = df['goals_info'][26]
 a = a[1:-1]
 
-a = a.replace('"', '')
-a = a.replace('\'', '')
-print(a)
 b = []
 
 for i in range(a.count('[')):
@@ -51,7 +48,15 @@ for i in range(a.count('[')):
     # Fix goals_info in data_processing2.py
     e = a[c+1:d].split(',')
     b.append(e)
-    print(a[c:d+1])
+    # print(a[c:d+1])
     a = a.replace(a[c:d+1], '', 1)
 
+# print(b)
+f = []
+for i in range(len(b)):
+    f.append([b[i][0], b[i][1:]])
+
+
+print(b[0][1])
 print(b)
+print(f)

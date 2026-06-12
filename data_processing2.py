@@ -11,6 +11,8 @@ df['possession'] = pd.to_numeric(df['possession'].str[:-1], errors='coerce')/100
 df['passing_accuracy'] = pd.to_numeric(df['passing_accuracy'].str[:-1], errors='coerce')/100
 df['possession_against'] = pd.to_numeric(df['possession_against'].str[:-1], errors='coerce')/100
 df['passing_accuracy_against'] = pd.to_numeric(df['passing_accuracy_against'].str[:-1], errors='coerce')/100
+df['goals_info'] = df['goals_info'].str.replace('",', '').str.replace('"', '').str.replace('\'', '').str.replace(', ', ',')
+df['goals_info_against'] = df['goals_info_against'].str.replace('",', '').str.replace('"', '').str.replace('\'', '').str.replace(', ', ',')
 
 df.to_excel(f'processed_data/{name}.xlsx', index=False)
 df.to_csv(f'processed_data/{name}.csv', index=False)
