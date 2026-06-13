@@ -1,8 +1,8 @@
 import pandas as pd
 
-current_name = 'Barcelona'
+current_name = 'México'
 
-df = pd.read_excel(f'processed_data/{current_name.lower()}.xlsx')
+df = pd.read_excel(f'processed_data/{current_name}.xlsx')
 
 matches_number = len(df)
 gf = df['gf'].sum()

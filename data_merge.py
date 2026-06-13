@@ -1,8 +1,9 @@
 import pandas as pd
 from pathlib import Path
 
+input_folder = "scraped_data"
 team_name = "Barcelona"
-data_path = Path("scraped_data")
+data_path = Path(input_folder)
 
 df_barca = pd.read_excel(data_path / f"raw_{team_name}.xlsx")
 
@@ -13,6 +14,7 @@ stats_cols = [
 
 rival_dfs = []
 
+print('Merging stats...')
 for rival in df_barca['rival_name'].unique():
 
     file_path = data_path / f"raw_{rival}.xlsx"
@@ -44,4 +46,8 @@ df_final = df_barca.merge(
     how="left"
 )
 
-df_final.to_excel("barcelona_matches_complete.xlsx", index=False)
+output_folder = 'complete_stats'
+
+df_final.to_excel(f"{output_folder}/{team_name}_complete_stats.xlsx", index=False)  # poner raw_ delante de team_name porque aún no está procesado.
+
+print(f"Saved in '{output_folder}' folder")

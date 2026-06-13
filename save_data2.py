@@ -4,6 +4,8 @@ import pandas as pd
 def save_data(url, current_team_name):
     columns = ['match_number', 'date', 'competition', 'rival_name', 'local', 'gf', 'ga', 'goals_info', 'shots', 'shots_on_goal', 'possession', 'passing', 'passing_accuracy', 'fouls', 'yellow_cards', 'red_cards', 'offside', 'corner', 'goals_info_against', 'shots_against', 'shots_on_goal_against', 'possession_against', 'passing_against', 'passing_accuracy_against', 'fouls_against', 'yellow_cards_against', 'red_cards_against', 'offside_against', 'corner_against']
 
+    output_folder = 'world_cup_scraped_data'
+
     team_name_1, data_team_1, team_name_2, data_team_2 = scrape_match(url)
     try:
         df1 = pd.read_excel(f'scraped_data/raw_{team_name_1}.xlsx')
@@ -20,16 +22,17 @@ def save_data(url, current_team_name):
         df1.loc[-1] = data_team_1
         df2.loc[-1] = data_team_2
 
-    # df1.to_excel(f'scraped_data/raw_{team_name_1}.xlsx', index=False)
-    # df2.to_excel(f'scraped_data/raw_{team_name_2}.xlsx', index=False)
+    df1.to_excel(f'{output_folder}/raw_{team_name_1}_complete_stats.xlsx', index=False)
+    df2.to_excel(f'{output_folder}/raw_{team_name_2}_complete_stats.xlsx', index=False)
 
     if df1['rival_name'] == current_team_name:
         df_local = 0
-    print('---Saved data---\n')
+    print(f'---Saved data in {output_folder}---\n')
 
-current_team_name = 'barcelona'
+input_folder = 'links/world_cup'
+current_team_name = 'México'
 
-with open(f'links/{current_team_name}.txt', 'r') as text_file:
+with open(f'{input_folder}/{current_team_name}.txt', 'r') as text_file:
     j = 1
     for i in text_file.readlines():
         if i != '\n':

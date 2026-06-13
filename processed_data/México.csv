@@ -1,0 +1,2 @@
+match_number,date,competition,rival_name,local,gf,ga,goals_info,shots,shots_on_goal,possession,passing,passing_accuracy,fouls,yellow_cards,red_cards,offside,corner
+1,11/6,Copa Mundial FIFA 2026,Sudáfrica,True,2,0,"[['Julián Andrés Quiñones', ""9'""], ['Raúl Jiménez', ""67'""]]",16,5,0.61,538,0.91,12,1,1,1,3
