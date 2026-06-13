@@ -9,25 +9,63 @@
 ## Correct order of codes:
 1. `scraping.py`: Funcion that scraps the web info of stats footbal teams using a link, the code returns lists called team_1_name, data_team_1, team_2_name and data_team_2. **(No run)**
 
-2. `save_data.py`: **Run first**. In the links/ folder, there are `.txt` files with the names of soccer teams, each containing links to the statistics displayed on Google for their matches. This script searches for the `.txt` file with the team name specified in the `current_team_name` variable and iterates through each link, applying the `scraping.py` function each time. The data obtained from each link is saved in an `.xlsx` file (or `.csv`, depending on the `format_file` variable) in the scraped_data/ folder (if the file doesn't exist, it is created). For each link, data must be added to two `.xlsx` (or `.csv`) files: one for the home team and one for the away team (or these files must be created). The data for each match is added as a new row, and the columns contain the respective statistics. The columns are: match number, date, competition, rival name, local, goals for, goals against, goal information, shots, shots on goal, possession, passing, passing_accuracy, fouls, yellow_cards, red_cards, offside, corner. Only one team's statistics are saved in its file; the opponent's statistics are saved in their own file.
 
-2. `save_data2.py`: Here, the statistics of the chosen team and the opponent they faced are saved in a single file (named according to `current_team_name`).
+2. `save_data.py`: **Run first**. In the `links/` folder, there are `.txt` files with the names of soccer teams, each containing links to the statistics displayed on Google for their matches. This script searches for the `.txt` file with the team name specified in the `current_team_name` variable and iterates through each link, applying the `scraping.py` function each time. The data obtained from each link is saved in an `.xlsx` file (or `.csv`, depending on the `format_file` variable) in the scraped_data/ folder (if the file doesn't exist, it is created). For each link, data must be added to two `.xlsx` (or `.csv`) files: one for the home team and one for the away team (or these files must be created). The data for each match is added as a new row, and the columns contain the respective statistics. The columns are: match number, date, competition, rival name, local, goals for, goals against, goal information, shots, shots on goal, possession, passing, passing_accuracy, fouls, yellow_cards, red_cards, offside, corner. Only one team's statistics are saved in its file; the opponent's statistics are saved in their own file.
 
-3. `save_general_data.py`: This code save two `.xlsx` files inside the `general_data/` folder: `general_df.xlsx` which contains general data for all football teams and `ids.xlsx` which generates an id for each football team. The file is a 'matches complete' type file.
+**Input folder:** links folder.
 
-4. `data_processing.py`: This code reads `.xlsx` files and processes their data using Pandas and saves them in the processed_data/ folder.
+**Output folder:** scraped data folder.
 
-4. `data_processing2.py`: This code reads `.xlsx` files and processes their data using Pandas and saves them in the processed_data/ folder. Using for 'matches complete' type files.
 
-5. `stats.py`: Show the team stats for a team of scraped_data/ folder.
+3. `save_data2.py`: Here, the statistics of the chosen team and the opponent they faced are saved in a single file (named according to `current_team_name`). The file is a 'complete stats' type file. **(Incomplete code)**.
 
-6. `filtering_functions`: This code reads `.xlsx` files (inside the scraped_data/ folder) and filters their data according to given criteria using Pandas.
+**Input folder:** links folder.
+
+**Output folder:** scraped data folder.
+
+
+4. `data_merge.py`: Merge team stats with those of their rivals in a 'complete stats' file. **(Incomplete but functional code)**
+
+**Input folder:** scraped data folder.
+
+**Output folder:** complete stats folder.
+
+5. `save_general_data.py`: This code save two `.xlsx` files inside the `general_data/` folder: `general_df.xlsx` which contains general data for all football teams and `ids.xlsx` which generates an id for each football team. **(Incomplete code)**
+
+**Input folder:** scraped data folder.
+
+**Output folder:** general data folder.
+
+
+6. `data_processing.py`: This code reads `raw_{name}.xlsx` files and processes their data using Pandas and saves them in the `processed_data/` folder.
+
+**Input folder:** scraped data folder.
+
+**Output folder:** processed data folder.
+
+
+7. `data_processing2.py`: This code reads `.xlsx` files and processes their data using Pandas and saves them in the `processed_data/` folder. Using for 'complete stats' type files.
+
+**Input folder:** complete stats folder.
+
+**Output folder:** processed data folder.
+
+
+8. `stats.py`: Show the team stats for a team of `scraped_data/` folder.
+
+**Input folder:** ?.
+
+**Output folder:** There is no output folder.
+
+**OBS:** Review `stats.py` and `data_stats.py`.
+
+9. `filtering_functions`: This code reads `.xlsx` files (inside the scraped_data/ folder) and filters their data according to given criteria using Pandas.
 
 
 
 ## Formats
 ## Format of .txt files
-All links must lead to the statistics that Google displays at the end of each match, for example: https://www.google.com/search?q=barcelona+vs&oq=barce&gs_lcrp=EgZjaHJvbWUqEwgAEEUYJxg7GEYY_QEYgAQYigUyEwgAEEUYJxg7GEYY_QEYgAQYigUyBggBEEUYOTIOCAIQRRgnGDsYgAQYigUyBggDEEUYOzIKCAQQLhixAxiABDIGCAUQRRg8MgYIBhBFGDwyBggHEEUYPNIBBzg3NmowajeoAgCwAgA&sourceid=chrome&ie=UTF-8#sie=m;/g/11yfnc0n2f; 2;/m/09gqx;dt;fp;1;;;;-1&wptab=si:AL3DRZGGPnnVaiK67YqdUfewzBcS-upM6Qijh dUU6Jr8AWsjr8v9CvA-SnNnnxtCTH-Iycrz5Hfiy-o4IHk920D1F5HguzudSJBINLsQJs59 tzpsV_DoE3teFj2StyQBu6wTFVQRHxAkZnNilYk5UX14zeC2J8cvyMEij66lv5a54Lb3tXT NH6EwDjyO9HmSby9uktlmw334vuaRUSjGAk8JkgNu1ms_j6cVIbsxZLNpcq6GWPT4U0U%3D
+All links must lead to the statistics that Google displays at the end of each match, for example: https://www.google.com/search?q=barcelona+vs&oq=barce&gs_lcrp=EgZjaHJvbWUqEwgAEEUYJxg7GEYY_QEYgAQYigUyEwgAEEUYJxg7GEYY_QEYgAQYigUyBggBEEUYOTIOCAIQRRgnGDsYgAQYigUyBggDEEUYOzIKCAQQLhixAxiABDIGCAUQRRg8MgYIBhBFGDwyBggHEEUYPNIBBzg3NmowajeoAgCwAgA&sourceid=chrome&ie=UTF-8#sie=m;/g/11yfnc0n2f;2;/m/09gqx;dt;fp;1;;;;-1&wptab=si:AL3DRZGGPnnVaiK67YqdUfewzBcS-upM6Qijh dUU6Jr8AWsjr8v9CvA-SnNnnxtCTH-Iycrz5Hfiy-o4IHk920D1F5HguzudSJBINLsQJs59tzpsV_DoE3teFj2StyQBu6wTFVQRHxAkZnNilYk5UX14zeC2J8cvyMEij66lv5a54Lb3tXT NH6EwDjyO9HmSby9uktlmw334vuaRUSjGAk8JkgNu1ms_j6cVIbsxZLNpcq6GWPT4U0U%3D
 
 He The file contains all the links from which you want to obtain information. These links must be separated by two line breaks, for example:
 
